@@ -38,6 +38,20 @@ const userSchema = new mongoose.Schema(
       minlength: [6, "Password must be at least 6 characters long"],
       select: false, // Don't include password in queries by default
     },
+    profile_photo: {
+      type: String,
+      default: "",
+      trim: true,
+      validate: {
+        validator: function(url) {
+          // Allow empty string (default value)
+          if (!url || url === "") return true;
+          // Validate Cloudinary URL format
+          return /^https?:\/\/res\.cloudinary\.com\/[a-zA-Z0-9_-]+\/image\/upload\/[a-zA-Z0-9_\-\/\.]+$/.test(url);
+        },
+        message: "Please provide a valid Cloudinary image URL or leave empty"
+      }
+    },
   },
   {
     timestamps: true, // Adds createdAt and updatedAt fields
