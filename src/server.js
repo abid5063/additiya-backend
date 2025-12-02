@@ -7,6 +7,7 @@ import { connectDB } from "./config/database.js";
 
 // Import Routes
 import authRoutes from "./routes/auth.js";
+import recordRoutes from "./routes/records.js";
 
 // Load environment variables
 dotenv.config();
@@ -50,6 +51,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/records", recordRoutes);
 
 // Health check route
 app.get("/api/health", (req, res) => {
